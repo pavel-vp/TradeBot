@@ -3,20 +3,10 @@ package com.interview;
 /**
  * Created by pasha on 20.02.18.
  */
-public class TradeBot01 implements Bidder {
-
-    protected int cashMy;
-    protected int cashOther;
-
-    protected int itemMy;
-    protected int itemOther;
-
-    protected int itemTotal;
-
-    protected ITradeCalculator manager;
+public class TradeBot01 extends AbstractTradeBot {
 
     public TradeBot01(ITradeCalculator manager) {
-        this.manager = manager;
+        super(manager);
     }
 
     protected int itemLeft() {
@@ -53,22 +43,4 @@ public class TradeBot01 implements Bidder {
         return bid;
     }
 
-    @Override
-    public void bids(int own, int other) {
-        if (own > other) {
-           itemMy+=2;
-        } else {
-            if (own < other) {
-                itemOther+=2;
-            } else {
-                itemMy++;
-                itemOther++;
-            }
-        }
-        cashMy -= own;
-        cashOther -= other;
-        if (this.manager != null) {
-            this.manager.afterMove(itemMy, cashMy);
-        }
-    }
 }
